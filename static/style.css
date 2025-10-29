@@ -12,7 +12,7 @@ body.hero {
   position: absolute;
   width: 100%;
   height: 100%;
-  background: rgba(0,0,0,0.5);
+  background: rgba(0, 0, 0, 0.5);
   top: 0;
   left: 0;
   z-index: -1;
@@ -35,8 +35,13 @@ body.hero {
 }
 
 @keyframes spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* Tombol keren seperti versi kamu */
@@ -45,13 +50,13 @@ body.hero {
   display: inline-flex;
   align-items: center;
   margin: 20px;
-  padding: 12px 25px;
+  padding: 12px 30px;
   border: 2px solid #fff;
   text-decoration: none;
   color: #fff;
   font-weight: 600;
   overflow: hidden;
-  border-radius: 8px;
+  border-radius: 10px;
   transition: all 0.3s ease;
 }
 
@@ -83,6 +88,8 @@ body.hero {
   padding: 50px 10%;
   margin-top: 80px;
   text-align: left;
+  color: white;
+
 }
 
 .info-section h2 {
