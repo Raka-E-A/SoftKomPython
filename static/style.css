@@ -95,3 +95,18 @@ body.hero {
 .info-section h2 {
   color: #b4ff6b;
 }
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    padding: 12px 16px; /* jarak lebih besar */
+    text-align: center;
+}
+
+th {
+    background-color: #eee;
+}

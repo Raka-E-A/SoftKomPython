@@ -1,25 +1,78 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
-  <meta charset="UTF-8" />
-  <title>Halaman 2</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SoftKomp | Algoritma Genetika</title>
+
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
-<body class="page">
-  <div class="page-content">
-    <h1>Ini Halaman 2</h1>
-    <p>Contoh isi konten halaman pertama SoftKomp.</p>
 
+<body class="info-section">
+
+  <div class="box">
+    <h1>Algoritma Genetika (Knapsack)</h1>
+    <p>
+      Berikut adalah proses perhitungan <strong>Algoritma Genetika</strong> untuk menyelesaikan
+      permasalahan <strong>Knapsack</strong> dengan kapasitas tertentu.
+    </p>
+
+    <hr>
+
+    <h2>Hasil per Generasi</h2>
+
+    <table border="1" class="data-table">
+      <tr style="color: black;">
+        <th>Generasi</th>
+        <th>Kromosom</th>
+        <th>Item</th>
+        <th>Berat</th>
+        <th>Nilai</th>
+        <th>Fitness</th>
+      </tr>
+
+      {% for r in report %}
+      <tr>
+        <td>{{ r.generation }}</td>
+        <td>{{ r.chromosome }}</td>
+        <td>
+          {% for item in r.selected_items %}
+          {{ item }}{% if not loop.last %}, {% endif %}
+          {% endfor %}
+        </td>
+
+        <td>{{ r.weight }}</td>
+        <td>{{ r.value }}</td>
+        <td>{{ r.fitness }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+
+    <hr>
+
+    <h2>Hasil Terbaik</h2>
+    <p><strong>Kromosom Terbaik:</strong> {{ final.chromosome }}</p>
+    <p><strong>Item Dipilih:</strong>
+      {% for item in final.selected_items%}
+      {{ item }}{% if not loop.last %}, {% endif %}
+      {% endfor %}
+    </p>
+
+    <p><strong>Total Berat:</strong> {{ final.weight }} kg</p>
+    <p><strong>Total Nilai:</strong> {{ final.value }}</p>
+    <p><strong>Fitness Akhir:</strong> {{ final.fitness }}</p>
+
+    <br><br>
+  </div>
+
+  <div>
     <a href="{{ url_for('index') }}" class="animated-button">
-      <svg viewBox="0 0 24 24" class="arr-2" xmlns="http://www.w3.org/2000/svg">
-        <path d="M8 12l8-8v16z"></path>
-      </svg>
-      <span class="text">Kembali ke Index</span>
+      <span class="text">Kembali ke Halaman Index</span>
       <span class="circle"></span>
-      <svg viewBox="0 0 24 24" class="arr-1" xmlns="http://www.w3.org/2000/svg">
-        <path d="M8 12l8-8v16z"></path>
-      </svg>
     </a>
   </div>
+
 </body>
+
 </html>
