@@ -1,25 +1,117 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
-  <meta charset="UTF-8" />
-  <title>Halaman 3</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SoftKomp | TSP - Algoritma Genetika</title>
+
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
-<body class="page">
-  <div class="page-content">
-    <h1>Ini Halaman 3</h1>
-    <p>Contoh isi konten halaman pertama SoftKomp.</p>
 
+<body class="info-section">
+
+  <div class="box">
+    <h1>Algoritma Genetika (TSP)</h1>
+    <p>
+      Masukkan data kota secara manual untuk menjalankan
+      <strong>Algoritma Genetika</strong> pada masalah
+      <strong>Traveling Salesman Problem (TSP)</strong>.
+    </p>
+
+    <hr>
+
+    <h2>Input Kota</h2>
+
+    <form action="/halaman3" method="POST">
+
+      <div id="form-area">
+        <div class="city-row" style="margin-bottom: 10px;">
+          <label>Nama Kota:</label>
+          <input type="text" name="city_name[]" required>
+
+          <label>X:</label>
+          <input type="number" step="0.01" name="city_x[]" required>
+
+          <label>Y:</label>
+          <input type="number" step="0.01" name="city_y[]" required>
+        </div>
+      </div>
+      
+      <br><br>
+
+      <button type="button" class="animated-button" style="background-color: transparent;"  onclick="addCity()">
+        <span class="text">Tambah Kota</span>
+        <span class="circle"></span>
+      </button>
+
+      <br><br>
+
+      <button style="background-color: transparent;" type="submit" class="animated-button">
+        <span class="text">Proses TSP</span>
+        <span class="circle"></span>
+      </button>
+
+    </form>
+
+    <hr>
+
+    {% if final %}
+    <h2>Hasil Terbaik</h2>
+
+    <p><strong>Rute Terbaik:</strong> {{ final.route }}</p>
+    <p><strong>Total Jarak:</strong> {{ final.distance }}</p>
+
+    <hr>
+
+    <h2>Perkembangan Per Generasi</h2>
+
+    <table border="1" class="data-table">
+      <tr style="color: black;">
+        <th>Generasi</th>
+        <th>Rute</th>
+        <th>Fitness</th>
+      </tr>
+
+      {% for r in report %}
+      <tr>
+        <td>{{ r.generation }}</td>
+        <td>{{ r.route }}</td>
+        <td>{{ r.fitness }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+    {% endif %}
+
+  </div>
+
+  <div>
     <a href="{{ url_for('index') }}" class="animated-button">
-      <svg viewBox="0 0 24 24" class="arr-2" xmlns="http://www.w3.org/2000/svg">
-        <path d="M8 12l8-8v16z"></path>
-      </svg>
-      <span class="text">Kembali ke Index</span>
+      <span class="text">Kembali ke Halaman Index</span>
       <span class="circle"></span>
-      <svg viewBox="0 0 24 24" class="arr-1" xmlns="http://www.w3.org/2000/svg">
-        <path d="M8 12l8-8v16z"></path>
-      </svg>
     </a>
   </div>
+
+  <script>
+    function addCity() {
+      let area = document.getElementById("form-area");
+      let div = document.createElement("div");
+
+      div.className = "city-row";
+      div.style.marginBottom = "10px";
+      div.innerHTML = `
+        <label>Nama Kota:</label>
+        <input type="text" name="city_name[]" required>
+
+        <label>X:</label>
+        <input type="number" step="0.01" name="city_x[]" required>
+
+        <label>Y:</label>
+        <input type="number" step="0.01" name="city_y[]" required>
+      `;
+      area.appendChild(div);
+    }
+  </script>
+
 </body>
 </html>
