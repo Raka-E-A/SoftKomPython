@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request
 from genetic import genetic_algorithm   # GA Knapsack   # GA Knapsack
 from genetic_tsp import run_tsp_ga               # GA TSP
+from anfis import anfis
 
 app = Flask(__name__)
 
@@ -11,14 +12,42 @@ def index():
 # -------------------------
 # HALAMAN KNA PSACK (seperti sebelumnya)
 # -------------------------
-@app.route('/halaman2')
+@app.route("/halaman2", methods=["GET", "POST"])
 def halaman2():
-    report, final = genetic_algorithm()  # Jalankan GA Knapsack
+    report = None
+    final = None
+
+    if request.method == "POST":
+        pop_size = int(request.form["pop_size"])
+        generations = int(request.form["generations"])
+        crossover_rate = float(request.form["crossover_rate"])
+        mutation_rate = float(request.form["mutation_rate"])
+
+        # DATA KNAPSACK (sementara hardcode)
+        items = {
+            'A': {'weight': 7, 'value': 5},
+            'B': {'weight': 2, 'value': 4},
+            'C': {'weight': 1, 'value': 7},
+            'D': {'weight': 9, 'value': 2},
+        }
+
+        capacity = 15
+
+        report, final = genetic_algorithm(
+            items,
+            capacity,
+            pop_size,
+            generations,
+            crossover_rate,
+            mutation_rate
+        )
+
     return render_template(
-        'halaman2.html',
+        "halaman2.html",
         report=report,
         final=final
     )
+
 
 # -------------------------
 # HALAMAN TSP
@@ -66,9 +95,23 @@ def halaman3():
     # GET (belum ada input)
     return render_template("halaman3.html")
 
-@app.route('/halaman4')
+@app.route('/halaman4', methods=['GET', 'POST'])
 def halaman4():
-    return render_template('halaman4.html')
+    result = None
+    x = y = None
+
+    if request.method == 'POST':
+        x = float(request.form['x'])
+        y = float(request.form['y'])
+        result = anfis(x, y)
+
+    return render_template(
+        'halaman4.html',
+        result=result,
+        x=x,
+        y=y
+    )
+
 
 if __name__ == '__main__':
     app.run(debug=True)

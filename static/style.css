@@ -110,3 +110,27 @@ th, td {
 th {
     background-color: #eee;
 }
+
+.input-form {
+  max-width: 400px;
+  margin: 30px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.input-form label {
+  font-weight: 600;
+  color: #b4ff6b;
+}
+
+.input-form input {
+  padding: 10px;
+  border-radius: 6px;
+  border: none;
+  outline: none;
+}
+
+.input-form button {
+  margin-top: 15px;
+}

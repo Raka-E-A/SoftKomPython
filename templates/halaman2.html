@@ -9,70 +9,116 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 
-<body class="info-section">
+<body class="hero">
 
-  <div class="box">
+  <div class="page-content">
+
     <h1>Algoritma Genetika (Knapsack)</h1>
     <p>
-      Berikut adalah proses perhitungan <strong>Algoritma Genetika</strong> untuk menyelesaikan
-      permasalahan <strong>Knapsack</strong> dengan kapasitas tertentu.
+      Berikut adalah proses perhitungan <strong>Algoritma Genetika</strong>
+      untuk menyelesaikan permasalahan <strong>Knapsack</strong>
+      dengan kapasitas tertentu.
     </p>
 
     <hr>
+    <h2>Input Parameter Algoritma Genetika</h2>
+
+<form method="POST" class="input-form">
+
+  <label>Ukuran Populasi</label>
+  <input type="number" name="pop_size" value="8" min="2" required>
+
+  <label>Jumlah Generasi</label>
+  <input type="number" name="generations" value="8" min="1" required>
+
+  <label>Crossover Rate</label>
+  <input type="number" step="0.1" name="crossover_rate" value="0.8" min="0" max="1" required>
+
+  <label>Mutation Rate</label>
+  <input type="number" step="0.01" name="mutation_rate" value="0.1" min="0" max="1" required>
+
+  <button
+  type="submit"
+  class="animated-button"
+  style="
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  "
+>
+  <span class="text">Hitung</span>
+  <span class="circle"></span>
+</button>
+
+
+</form>
+
+<hr>
+
 
     <h2>Hasil per Generasi</h2>
 
-    <table border="1" class="data-table">
-      <tr style="color: black;">
-        <th>Generasi</th>
-        <th>Kromosom</th>
-        <th>Item</th>
-        <th>Berat</th>
-        <th>Nilai</th>
-        <th>Fitness</th>
-      </tr>
+    <div class="info-section">
+      {% if report %}
+<table class="data-table" style="background-color: black;">
+  <tr >
+    <th style="background-color: gray;">Generasi</th>
+    <th style="background-color: gray;">Kromosom</th>
+    <th style="background-color: gray;">Item</th>
+    <th style="background-color: gray;">Berat</th>
+    <th style="background-color: gray;">Nilai</th>
+    <th style="background-color: gray;">Fitness</th>
+  </tr>
 
-      {% for r in report %}
-      <tr>
-        <td>{{ r.generation }}</td>
-        <td>{{ r.chromosome }}</td>
-        <td>
-          {% for item in r.selected_items %}
-          {{ item }}{% if not loop.last %}, {% endif %}
-          {% endfor %}
-        </td>
-
-        <td>{{ r.weight }}</td>
-        <td>{{ r.value }}</td>
-        <td>{{ r.fitness }}</td>
-      </tr>
+  {% for r in report %}
+  <tr>
+    <td>{{ r.generation }}</td>
+    <td>{{ r.chromosome }}</td>
+    <td>
+      {% for item in r.selected_items %}
+        {{ item }}{% if not loop.last %}, {% endif %}
       {% endfor %}
-    </table>
+    </td>
+    <td>{{ r.weight }}</td>
+    <td>{{ r.value }}</td>
+    <td>{{ r.fitness }}</td>
+  </tr>
+  {% endfor %}
+</table>
+{% endif %}
+
+    </div>
 
     <hr>
 
     <h2>Hasil Terbaik</h2>
+
     <p><strong>Kromosom Terbaik:</strong> {{ final.chromosome }}</p>
+
     <p><strong>Item Dipilih:</strong>
-      {% for item in final.selected_items%}
-      {{ item }}{% if not loop.last %}, {% endif %}
+      {% for item in final.selected_items %}
+        {{ item }}{% if not loop.last %}, {% endif %}
       {% endfor %}
+     
+
     </p>
 
     <p><strong>Total Berat:</strong> {{ final.weight }} kg</p>
     <p><strong>Total Nilai:</strong> {{ final.value }}</p>
     <p><strong>Fitness Akhir:</strong> {{ final.fitness }}</p>
 
-    <br><br>
-  </div>
+    <br>
 
-  <div>
     <a href="{{ url_for('index') }}" class="animated-button">
-      <span class="text">Kembali ke Halaman Index</span>
+      
+      <span class="text">Kembali ke Index</span>
       <span class="circle"></span>
+      
     </a>
+
   </div>
 
 </body>
-
 </html>
